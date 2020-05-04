@@ -2,22 +2,53 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+import ProductIndex from '../views/products/ProductIndex.vue'
+import Product from '../views/products/Product.vue'
+import Dashboard from '../views/admin/Dashboard.vue'
+import CategoriasIndex from '../views/admin/categories/Index.vue'
+import ProductosIndex from '../views/admin/products/Index.vue'
+
 Vue.use(VueRouter)
 
-  const routes = [
-  {
+const routes = [{
     path: '/',
     name: 'Home',
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
+    path: '/productos/:categoria/:id',
+    name: 'Product',
+    component: Product,
+  },
+  {
+    path: '/productos/:categoria',
+    name: 'ProductIndex',
+    component: ProductIndex,
+  },
+  {
+    path: '/admin/dashboard',
+    name: 'Admin',
+    component: Dashboard,
+    meta: {
+      layout: 'admin'
+    }
+  },
+  {
+    path: '/admin/categorias',
+    name: 'CategoriasIndex',
+    component: CategoriasIndex,
+    meta: {
+      layout: 'admin'
+    }
+  },
+  {
+    path: '/admin/productos',
+    name: 'ProductosIndex',
+    component: ProductosIndex,
+    meta: {
+      layout: 'admin'
+    }
+  },
 ]
 
 const router = new VueRouter({
