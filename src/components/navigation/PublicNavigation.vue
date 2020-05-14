@@ -19,7 +19,7 @@
       </v-menu>
 
       <v-spacer></v-spacer>
-      <v-toolbar-title class="font-italic">
+      <v-toolbar-title class="amatic-font">
         <router-link to="/" tag="span" style="cursor: pointer">ImportadosCoconut</router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
@@ -57,3 +57,11 @@ export default {
   })
 };
 </script>
+
+<style scoped>
+.amatic-font {
+  font-family: "Amatic SC", cursive !important;
+  font-size: 30px;
+  letter-spacing: 5px;
+}
+</style>

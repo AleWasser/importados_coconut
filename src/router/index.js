@@ -1,12 +1,19 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import Home from '../views/Home.vue';
 
-import ProductIndex from '../views/products/ProductIndex.vue'
-import Product from '../views/products/Product.vue'
-import Dashboard from '../views/admin/Dashboard.vue'
-import CategoriasIndex from '../views/admin/categories/Index.vue'
-import ProductosIndex from '../views/admin/products/Index.vue'
+import Dashboard from '../views/admin/Dashboard.vue';
+
+//* Products
+import Product from '../views/products/Product.vue';
+import ProductsIndex from '../views/admin/products/Index.vue';
+
+//* Categories
+import CategoryIndex from '../views/categories/CategoryIndex.vue';
+//* Admin
+import CategoriesIndex from '../views/admin/categories/Index.vue';
+import CategoryCreate from '../views/admin/categories/Create.vue';
+import CategoryEdit from '../views/admin/categories/Edit.vue';
 
 Vue.use(VueRouter)
 
@@ -21,9 +28,9 @@ const routes = [{
     component: Product,
   },
   {
-    path: '/productos/:categoria',
-    name: 'ProductIndex',
-    component: ProductIndex,
+    path: '/categorias/:id',
+    name: 'CategoryIndex',
+    component: CategoryIndex,
   },
   {
     path: '/admin/dashboard',
@@ -35,16 +42,32 @@ const routes = [{
   },
   {
     path: '/admin/categorias',
-    name: 'CategoriasIndex',
-    component: CategoriasIndex,
+    name: 'CategoriesIndex',
+    component: CategoriesIndex,
+    meta: {
+      layout: 'admin'
+    }
+  },
+  {
+    path: '/admin/categorias/crear',
+    name: 'CategoryCreate',
+    component: CategoryCreate,
+    meta: {
+      layout: 'admin'
+    }
+  },
+  {
+    path: '/admin/categorias/editar/:id',
+    name: 'CategoryEdit',
+    component: CategoryEdit,
     meta: {
       layout: 'admin'
     }
   },
   {
     path: '/admin/productos',
-    name: 'ProductosIndex',
-    component: ProductosIndex,
+    name: 'ProductsIndex',
+    component: ProductsIndex,
     meta: {
       layout: 'admin'
     }

@@ -15,124 +15,24 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-container grid-list-xs>
-      <v-row>
-        <v-col cols="4">
-          <v-hover v-slot:default="{ hover }">
-            <v-card shaped>
-              <v-img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.icfHFCwIkJ8q5c0orGwaKAHaHa%26pid%3DApi&f=1"
-              >
-                <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out title-background v-card--reveal display-3 white--text"
-                    style="height: 100%;"
-                  >
-                    <v-row align="center" justify="center">Categoria</v-row>
-                  </div>
-                </v-expand-transition>
-              </v-img>
-            </v-card>
-          </v-hover>
+
+    <v-container fluid class="my-5">
+      <v-row class="text-center">
+        <v-col cols="12" class="pb-0">
+          <h1 class="title text-center">CATEGORIAS</h1>
         </v-col>
-        <v-col cols="4">
-          <v-hover v-slot:default="{ hover }">
-            <v-card shaped>
-              <v-img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.icfHFCwIkJ8q5c0orGwaKAHaHa%26pid%3DApi&f=1"
-              >
-                <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out title-background v-card--reveal display-3 white--text"
-                    style="height: 100%;"
-                  >
-                    <v-row align="center" justify="center">Categoria</v-row>
-                  </div>
-                </v-expand-transition>
-              </v-img>
-            </v-card>
-          </v-hover>
-        </v-col>
-        <v-col cols="4">
-          <v-hover v-slot:default="{ hover }">
-            <v-card shaped>
-              <v-img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.icfHFCwIkJ8q5c0orGwaKAHaHa%26pid%3DApi&f=1"
-              >
-                <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out title-background v-card--reveal display-3 white--text"
-                    style="height: 100%;"
-                  >
-                    <v-row align="center" justify="center">Categoria</v-row>
-                  </div>
-                </v-expand-transition>
-              </v-img>
-            </v-card>
-          </v-hover>
-        </v-col>
-        <v-col cols="4">
-          <v-hover v-slot:default="{ hover }">
-            <v-card shaped>
-              <v-img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.icfHFCwIkJ8q5c0orGwaKAHaHa%26pid%3DApi&f=1"
-              >
-                <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out title-background v-card--reveal display-3 white--text"
-                    style="height: 100%;"
-                  >
-                    <v-row align="center" justify="center">Categoria</v-row>
-                  </div>
-                </v-expand-transition>
-              </v-img>
-            </v-card>
-          </v-hover>
-        </v-col>
-        <v-col cols="4">
-          <v-hover v-slot:default="{ hover }">
-            <v-card shaped>
-              <v-img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.icfHFCwIkJ8q5c0orGwaKAHaHa%26pid%3DApi&f=1"
-              >
-                <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out title-background v-card--reveal display-3 white--text"
-                    style="height: 100%;"
-                  >
-                    <v-row align="center" justify="center">Categoria</v-row>
-                  </div>
-                </v-expand-transition>
-              </v-img>
-            </v-card>
-          </v-hover>
-        </v-col>
-        <v-col cols="4">
-          <v-hover v-slot:default="{ hover }">
-            <v-card shaped>
-              <v-img
-                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.icfHFCwIkJ8q5c0orGwaKAHaHa%26pid%3DApi&f=1"
-              >
-                <v-expand-transition>
-                  <div
-                    v-if="hover"
-                    class="d-flex transition-fast-in-fast-out title-background v-card--reveal display-3 white--text"
-                    style="height: 100%;"
-                  >
-                    <v-row align="center" justify="center">Categoria</v-row>
-                  </div>
-                </v-expand-transition>
-              </v-img>
-            </v-card>
-          </v-hover>
+        <v-col cols="12" class="pt-0">
+          <v-container>
+            <v-row class="justify-center">
+              <v-col cols="2" v-for="item in categories" :key="item.id">
+                <v-btn tile block outlined :to="'/categorias/' + item.id">{{item.name}}</v-btn>
+              </v-col>
+            </v-row>
+          </v-container>
         </v-col>
       </v-row>
     </v-container>
+
     <v-container fluid class="pa-0 orange">
       <v-row align="center" class="text-center" style="height:400px">
         <v-col cols="12">
@@ -151,6 +51,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "Home",
   data() {
@@ -164,7 +66,10 @@ export default {
       ],
       slides: ["First", "Second", "Third", "Fourth", "Fifth"]
     };
-  }
+  },
+  computed: mapGetters({
+    categories: "categories/getCategories"
+  })
 };
 </script>
 
