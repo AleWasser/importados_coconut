@@ -27,16 +27,22 @@
       </v-container>
       <v-container>
         <v-row>
-          <v-col cols="3">
-            <v-img
-              src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.icfHFCwIkJ8q5c0orGwaKAHaHa%26pid%3DApi&f=1"
-            ></v-img>
+          <v-col cols="3" v-for="item in products" :key="item.id">
+            <router-link :to="'/productos/' + item.id" class="linkless">
+              <v-img :src="item.imageUrl" lazy-src="@/assets/importados_coconut_placeholder.png">
+                <template v-slot:placeholder>
+                  <v-row class="fill-height ma-0" align="center" justify="center">
+                    <v-progress-circular indeterminate color="black lighten-5"></v-progress-circular>
+                  </v-row>
+                </template>
+              </v-img>
 
-            <div class="body-1 mt-2 mb-0 text-center">
-              <p class="pa-0 ma-0">PRODUCTO</p>
-              <p class="pa-0 ma-0 font-weight-bold">$20</p>
-              <p class="subtitle-1 ma-0">3 cuotas sin interes</p>
-            </div>
+              <div class="body-1 mt-2 mb-0 text-center">
+                <p class="pa-0 ma-0">{{item.name}}</p>
+                <p class="pa-0 ma-0 font-weight-bold">${{item.price}}</p>
+                <p class="subtitle-1 ma-0">3 cuotas sin interes</p>
+              </div>
+            </router-link>
           </v-col>
         </v-row>
       </v-container>
@@ -49,6 +55,11 @@ export default {
   computed: {
     category() {
       return this.$store.getters["categories/getCategory"](
+        this.$route.params.id
+      );
+    },
+    products() {
+      return this.$store.getters["products/getProductsByCategory"](
         this.$route.params.id
       );
     }

@@ -24,5 +24,10 @@ $heading-font-family: $body-font-family !default;
     }
 }
 
+.linkless {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
 // Required for modifying core defaults
 @import '~vuetify/src/styles/styles.sass';

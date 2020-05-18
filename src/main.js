@@ -21,5 +21,6 @@ new Vue({
   render: h => h(App),
   created() {
     this.$store.dispatch('categories/fetch');
+    this.$store.dispatch('products/fetch');
   }
 }).$mount('#app')

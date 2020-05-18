@@ -9,20 +9,23 @@
                 <v-col cols="5" class="py-0">
                   <v-img
                     height="100%"
-                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.icfHFCwIkJ8q5c0orGwaKAHaHa%26pid%3DApi&f=1"
-                  ></v-img>
+                    :src="product.imageUrl"
+                    lazy-src="@/assets/importados_coconut_placeholder.png"
+                  >
+                    <template v-slot:placeholder>
+                      <v-row class="fill-height ma-0" align="center" justify="center">
+                        <v-progress-circular indeterminate color="black lighten-5"></v-progress-circular>
+                      </v-row>
+                    </template>
+                  </v-img>
                 </v-col>
-                <v-col cols="7">
-                  <div class="display-3 pa-4">Producto</div>
-                  <p class="mt2 pa-4">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga voluptatum numquam optio, quod, officiis, quam libero dolore quasi illo sequi qui vero tenetur dolorem animi ab aperiam repellendus recusandae quidem.
-                    Voluptatum aut voluptas minima, eveniet numquam quasi, ea culpa commodi illum repellat eligendi quod tenetur et consequuntur. Fugit minus iure porro deserunt totam alias, eius, voluptas rerum quasi laudantium quis.
-                    Aliquam ab earum ratione, sequi itaque corrupti nobis quia molestiae possimus accusantium amet ex ullam, dicta vitae illo voluptate a iusto praesentium. Illo expedita doloremque officia, beatae voluptate dolorem eum?
-                    Soluta perspiciatis minus, maxime delectus sunt ipsa repellendus doloribus, pariatur odit nam natus consequatur illum nesciunt veritatis! Nihil sed ab quidem, magni, adipisci fuga quasi facere omnis dicta aut doloremque.
-                  </p>
+                <v-col cols="7" class="text-center">
+                  <div class="display-1 px-4 pt-4 mb-1">{{product.name}}</div>
+                  <div class="headline">${{product.price}}</div>
+                  <p class="mt2 pa-4">{{product.description}}</p>
                   <div class="text-center">
                     <v-btn text color="black" dark large>
-                      <v-icon left>mdi-cart</v-icon>Comprar
+                      <v-icon left>mdi-cart</v-icon>Agregar al carrito
                     </v-btn>
                   </div>
                 </v-col>
@@ -34,3 +37,13 @@
     </v-container>
   </div>
 </template>
+
+<script>
+export default {
+  computed: {
+    product() {
+      return this.$store.getters["products/getProduct"](this.$route.params.id);
+    }
+  }
+};
+</script>

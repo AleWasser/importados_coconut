@@ -6,24 +6,29 @@ import Dashboard from '../views/admin/Dashboard.vue';
 
 //* Products
 import Product from '../views/products/Product.vue';
-import ProductsIndex from '../views/admin/products/Index.vue';
 
 //* Categories
 import CategoryIndex from '../views/categories/CategoryIndex.vue';
+
 //* Admin
 import CategoriesIndex from '../views/admin/categories/Index.vue';
 import CategoryCreate from '../views/admin/categories/Create.vue';
 import CategoryEdit from '../views/admin/categories/Edit.vue';
+import ProductsIndex from '../views/admin/products/Index.vue';
+import ProductCreate from '../views/admin/products/Create.vue';
+import ProductEdit from '../views/admin/products/Edit.vue';
 
 Vue.use(VueRouter)
 
-const routes = [{
+const routes = [
+  //* Public
+  {
     path: '/',
     name: 'Home',
     component: Home
   },
   {
-    path: '/productos/:categoria/:id',
+    path: '/productos/:id',
     name: 'Product',
     component: Product,
   },
@@ -32,6 +37,7 @@ const routes = [{
     name: 'CategoryIndex',
     component: CategoryIndex,
   },
+  //* Admin
   {
     path: '/admin/dashboard',
     name: 'Admin',
@@ -68,6 +74,22 @@ const routes = [{
     path: '/admin/productos',
     name: 'ProductsIndex',
     component: ProductsIndex,
+    meta: {
+      layout: 'admin'
+    }
+  },
+  {
+    path: '/admin/productos/crear',
+    name: 'ProductsCreate',
+    component: ProductCreate,
+    meta: {
+      layout: 'admin'
+    }
+  },
+  {
+    path: '/admin/productos/editar/:id',
+    name: 'ProductsEdit',
+    component: ProductEdit,
     meta: {
       layout: 'admin'
     }
