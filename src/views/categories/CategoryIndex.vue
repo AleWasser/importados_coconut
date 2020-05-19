@@ -27,7 +27,7 @@
       </v-container>
       <v-container>
         <v-row>
-          <v-col cols="3" v-for="item in products" :key="item.id">
+          <v-col sm="12" md="3" v-for="item in products" :key="item.id">
             <router-link :to="'/productos/' + item.id" class="linkless">
               <v-img :src="item.imageUrl" lazy-src="@/assets/importados_coconut_placeholder.png">
                 <template v-slot:placeholder>

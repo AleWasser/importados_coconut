@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container fluid class="pa-0">
+    <v-container fluid class="py-0">
       <v-row>
         <v-col cols="12" class="pa-0">
           <v-carousel cycle height="400" hide-delimiter-background show-arrows-on-hover>
@@ -16,7 +16,7 @@
       </v-row>
     </v-container>
 
-    <v-container fluid class="my-5">
+    <v-container fluid class="py-5">
       <v-row class="text-center">
         <v-col cols="12" class="pb-0">
           <h1 class="title text-center">CATEGORIAS</h1>
@@ -24,7 +24,7 @@
         <v-col cols="12" class="pt-0">
           <v-container>
             <v-row class="justify-center">
-              <v-col cols="2" v-for="item in categories" :key="item.id">
+              <v-col xs="12" sm="12" md="2" v-for="item in categories" :key="item.id">
                 <v-btn tile block outlined :to="'/categorias/' + item.id">{{item.name}}</v-btn>
               </v-col>
             </v-row>
@@ -33,16 +33,39 @@
       </v-row>
     </v-container>
 
-    <v-container fluid class="pa-0 orange">
-      <v-row align="center" class="text-center" style="height:400px">
+    <v-container>
+      <v-row align="center" class="text-center">
         <v-col cols="12">
-          <h3 class="display-4 white--text">Ofertas</h3>
+          <h1 class="headline text-center">TODOS LOS PRODUCTOS</h1>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col sm="12" md="3" v-for="item in products" :key="item.id">
+          <router-link :to="'/productos/' + item.id" class="linkless">
+            <v-img
+              :src="item.imageUrl"
+              height="150"
+              lazy-src="@/assets/importados_coconut_placeholder.png"
+            >
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular indeterminate color="black lighten-5"></v-progress-circular>
+                </v-row>
+              </template>
+            </v-img>
+
+            <div class="body-1 mt-2 mb-0 text-center">
+              <p class="pa-0 ma-0">{{item.name}}</p>
+              <p class="pa-0 ma-0 font-weight-bold">${{item.price}}</p>
+              <p class="subtitle-1 ma-0">3 cuotas sin interes</p>
+            </div>
+          </router-link>
         </v-col>
       </v-row>
     </v-container>
-    <v-container fluid class="pa-0 red">
+    <v-container fluid class="red">
       <v-row align="center" class="text-center" style="height:400px">
-        <v-col cols="12">
+        <v-col cols="12" class="pa-0">
           <h3 class="display-4 white--text">Footer</h3>
         </v-col>
       </v-row>
@@ -68,7 +91,8 @@ export default {
     };
   },
   computed: mapGetters({
-    categories: "categories/getCategories"
+    categories: "categories/getCategories",
+    products: "products/getProducts"
   })
 };
 </script>

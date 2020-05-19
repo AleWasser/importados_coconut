@@ -6,10 +6,23 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-title class="amatic-font">
-        <router-link to="/" tag="span" style="cursor: pointer">
-          <v-img class="d-inline-block mr-4" src="@/assets/importados_coconut_logo_transparent.png"></v-img>ImportadosCoconut
-          <v-img class="d-inline-block" src="@/assets/importados_coconut_logo_transparent.png"></v-img>
-        </router-link>
+        <v-img
+          class="d-none d-sm-inline-block mr-4"
+          :src="require('../../assets/importados_coconut_logo_transparent.png')"
+        ></v-img>
+        <v-img
+          class="d-none d-sm-inline-block mr-4"
+          :src="require('../../assets/importados_coconut_logo_transparent.png')"
+        ></v-img>
+        <router-link to="/" tag="span" style="cursor: pointer">ImportadosCoconut</router-link>
+        <v-img
+          class="d-none d-sm-inline-block mr-4"
+          :src="require('../../assets/importados_coconut_logo_transparent.png')"
+        ></v-img>
+        <v-img
+          class="d-none d-sm-inline-block"
+          :src="require('../../assets/importados_coconut_logo_transparent.png')"
+        ></v-img>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
