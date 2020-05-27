@@ -9,6 +9,7 @@ import {
 
 const state = {
     categories: [],
+    loading: false,
 }
 
 const getters = {
@@ -19,6 +20,9 @@ const getters = {
         return (id) => {
             return state.categories.find(item => item.id == id);
         }
+    },
+    getLoading(state) {
+        return state.loading;
     }
 }
 
@@ -43,6 +47,10 @@ const mutations = {
     //* Unset deleted category from state
     delete(state, payload) {
         state.categories = state.categories.filter(item => item.id !== payload);
+    },
+    //* Set loading state
+    setLoading(state, payload) {
+        return state.loading = payload;
     }
 }
 
@@ -51,6 +59,7 @@ const actions = {
     fetch({
         commit
     }) {
+        commit('setLoading', true);
         db.collection('categories').orderBy('name').get()
             .then(snapshot => {
                 let documents = [];
@@ -60,8 +69,12 @@ const actions = {
                     documents.push(item);
                 });
                 commit('fetch', documents);
+                commit('setLoading', false);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                commit('setLoading', false);
+                console.error(err);
+            });
     },
     //* Create Categories
     create({
@@ -70,6 +83,7 @@ const actions = {
         let id;
         let imageUrl;
         let imagePath;
+        commit('setLoading', true);
         db.collection('categories').add({
                 name: payload.name,
             })
@@ -93,8 +107,12 @@ const actions = {
                     imageUrl: imageUrl,
                     imagePath: imagePath,
                 });
+                commit('setLoading', false);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                commit('setLoading', false);
+                console.error(err);
+            });
     },
     //* Update a category
     update({
@@ -102,6 +120,7 @@ const actions = {
     }, payload) {
         let imageUrl;
         let imagePath;
+        commit('setLoading', true);
         db.collection('categories').doc(payload.id).update({
                 name: payload.name,
             })
@@ -131,17 +150,28 @@ const actions = {
                         id: payload.id,
                     });
                 }
+                commit('setLoading', false);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                commit('setLoading', false);
+                console.error(err);
+            });
     },
     //* Delete Category
     delete({
         commit
     }, payload) {
+        commit('setLoading', true);
         db.collection('categories').doc(payload.id).delete()
             .then(() => deleteFile(payload.imagePath))
-            .then(() => commit('delete', payload.id))
-            .catch(err => console.error(err));
+            .then(() => {
+                commit('setLoading', false);
+                commit('delete', payload.id);
+            })
+            .catch(err => {
+                commit('setLoading', false);
+                console.error(err);
+            });
     }
 }
 

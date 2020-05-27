@@ -4,15 +4,32 @@
       <v-row class="justify-center">
         <v-col cols="8">
           <h3 class="display-3">Productos</h3>
-          <v-btn rounded color="success" class="mt-2 mb-3" to="/admin/productos/crear">
+          <v-btn
+            rounded
+            color="success"
+            class="mt-2 mb-3"
+            to="/admin/productos/crear"
+            :loading="loading"
+          >
             <v-icon left>mdi-plus-circle</v-icon>Crear
           </v-btn>
-          <v-data-table :headers="headers" :items="products" item-key="id" class="elevation-1">
+          <v-data-table
+            :headers="headers"
+            :items="products"
+            item-key="id"
+            :loading="loading"
+            class="elevation-1"
+          >
             <template v-slot:item.action="{ item }">
-              <v-btn icon small :to="'productos/editar/' + item.id">
+              <v-btn icon small :to="'productos/editar/' + item.id" :disabled="loading">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-              <v-btn icon small @click="deleteDialog(item.id, item.name, item.imagePath)">
+              <v-btn
+                icon
+                small
+                @click="deleteDialog(item.id, item.name, item.imagePath)"
+                :disabled="loading"
+              >
                 <v-icon>mdi-delete</v-icon>
               </v-btn>
             </template>
@@ -67,6 +84,9 @@ export default {
   computed: {
     products() {
       return this.$store.getters["products/getProducts"];
+    },
+    loading() {
+      return this.$store.getters["products/getLoading"];
     }
   }
 };

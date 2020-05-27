@@ -9,6 +9,7 @@ import {
 
 const state = {
     products: [],
+    loading: false,
 }
 const getters = {
     getProducts(state) {
@@ -23,6 +24,9 @@ const getters = {
         return (category) => {
             return state.products.filter(item => item.category.id == category);
         }
+    },
+    getLoading(state) {
+        return state.loading;
     }
 }
 
@@ -47,6 +51,10 @@ const mutations = {
     //* Unset deleted product from state
     delete(state, payload) {
         state.products = state.products.filter(item => item.id !== payload);
+    },
+    //* Set Loading State
+    setLoading(state, payload) {
+        return state.loading = payload;
     }
 }
 const actions = {
@@ -54,6 +62,7 @@ const actions = {
     fetch({
         commit
     }) {
+        commit('setLoading', true);
         db.collection('products').orderBy('name').get()
             .then(snapshot => {
                 let documents = [];
@@ -63,8 +72,12 @@ const actions = {
                     documents.push(item);
                 });
                 commit('fetch', documents);
+                commit('setLoading', false);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                commit('setLoading', false);
+                console.error(err);
+            });
     },
     //* Create Product
     create({
@@ -73,6 +86,7 @@ const actions = {
         let id;
         let imageUrl;
         let imagePath;
+        commit('setLoading', true);
         db.collection('products').add({
                 name: payload.name,
                 description: payload.description,
@@ -106,12 +120,16 @@ const actions = {
                     },
                     stock: payload.stock,
                     price: payload.price,
-                    id: payload.id,
+                    id: id,
                     imageUrl: imageUrl,
                     imagePath: imagePath,
                 });
+                commit('setLoading', false);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                commit('setLoading', false);
+                console.error(err);
+            });
     },
     //* Update a product
     update({
@@ -119,6 +137,7 @@ const actions = {
     }, payload) {
         let imageUrl;
         let imagePath;
+        commit('setLoading', true);
         db.collection('products').doc(payload.id).update({
                 name: payload.name,
                 description: payload.description,
@@ -155,6 +174,7 @@ const actions = {
                                 imageUrl: imageUrl,
                                 imagePath: imagePath,
                             });
+                            commit('setLoading', false);
                         })
                 } else {
                     commit('update', {
@@ -168,18 +188,29 @@ const actions = {
                         price: payload.price,
                         id: payload.id,
                     });
+                    commit('setLoading', false);
                 }
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                commit('setLoading', false);
+                console.error(err);
+            });
     },
     //* Delete Product
     delete({
         commit
     }, payload) {
+        commit('setLoading', true);
         db.collection('products').doc(payload.id).delete()
             .then(() => deleteFile(payload.imagePath))
-            .then(() => commit('delete', payload.id))
-            .catch(err => console.error(err));
+            .then(() => {
+                commit('delete', payload.id);
+                commit('setLoading', false);
+            })
+            .catch(err => {
+                commit('setLoading', false);
+                console.error(err);
+            });
     }
 }
 

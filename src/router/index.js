@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
 
-import Dashboard from '../views/admin/Dashboard.vue';
+import AuthGuard from './auth-guard';
+
+import Home from '../views/Home.vue';
 
 //* Products
 import Product from '../views/products/Product.vue';
@@ -11,6 +12,8 @@ import Product from '../views/products/Product.vue';
 import CategoryIndex from '../views/categories/CategoryIndex.vue';
 
 //* Admin
+import Login from '../views/authentication/Login.vue';
+import Dashboard from '../views/admin/Dashboard.vue';
 import CategoriesIndex from '../views/admin/categories/Index.vue';
 import CategoryCreate from '../views/admin/categories/Create.vue';
 import CategoryEdit from '../views/admin/categories/Edit.vue';
@@ -39,12 +42,18 @@ const routes = [
   },
   //* Admin
   {
-    path: '/admin/dashboard',
+    path: '/admin/login',
+    name: 'Login',
+    component: Login,
+  },
+  {
+    path: '/admin',
     name: 'Admin',
     component: Dashboard,
     meta: {
       layout: 'admin'
-    }
+    },
+    beforeEnter: AuthGuard,
   },
   {
     path: '/admin/categorias',
@@ -52,7 +61,8 @@ const routes = [
     component: CategoriesIndex,
     meta: {
       layout: 'admin'
-    }
+    },
+    beforeEnter: AuthGuard,
   },
   {
     path: '/admin/categorias/crear',
@@ -60,7 +70,8 @@ const routes = [
     component: CategoryCreate,
     meta: {
       layout: 'admin'
-    }
+    },
+    beforeEnter: AuthGuard,
   },
   {
     path: '/admin/categorias/editar/:id',
@@ -68,7 +79,8 @@ const routes = [
     component: CategoryEdit,
     meta: {
       layout: 'admin'
-    }
+    },
+    beforeEnter: AuthGuard,
   },
   {
     path: '/admin/productos',
@@ -76,7 +88,8 @@ const routes = [
     component: ProductsIndex,
     meta: {
       layout: 'admin'
-    }
+    },
+    beforeEnter: AuthGuard,
   },
   {
     path: '/admin/productos/crear',
@@ -84,7 +97,8 @@ const routes = [
     component: ProductCreate,
     meta: {
       layout: 'admin'
-    }
+    },
+    beforeEnter: AuthGuard,
   },
   {
     path: '/admin/productos/editar/:id',
@@ -92,7 +106,8 @@ const routes = [
     component: ProductEdit,
     meta: {
       layout: 'admin'
-    }
+    },
+    beforeEnter: AuthGuard,
   },
 ]
 

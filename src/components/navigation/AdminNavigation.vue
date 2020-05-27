@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer mini-variant absolute expand-on-hover @transitionend="mini = !mini">
     <v-list nav dense>
-      <v-list-item v-for="(item, index) in items" :key="index" :to="item.link">
+      <v-list-item v-for="(item, index) in items" :key="index" :to="item.link" exact>
         <v-list-item-icon>
           <v-icon>{{item.icon}}</v-icon>
         </v-list-item-icon>
@@ -30,7 +30,7 @@ export default {
         {
           icon: "mdi-view-dashboard",
           name: "Dashboard",
-          link: "/admin/dashboard"
+          link: "/admin"
         },
         {
           icon: "mdi-shape",

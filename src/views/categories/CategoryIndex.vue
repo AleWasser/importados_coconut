@@ -26,32 +26,19 @@
         </v-row>
       </v-container>
       <v-container>
-        <v-row>
-          <v-col sm="12" md="3" v-for="item in products" :key="item.id">
-            <router-link :to="'/productos/' + item.id" class="linkless">
-              <v-img :src="item.imageUrl" lazy-src="@/assets/importados_coconut_placeholder.png">
-                <template v-slot:placeholder>
-                  <v-row class="fill-height ma-0" align="center" justify="center">
-                    <v-progress-circular indeterminate color="black lighten-5"></v-progress-circular>
-                  </v-row>
-                </template>
-              </v-img>
-
-              <div class="body-1 mt-2 mb-0 text-center">
-                <p class="pa-0 ma-0">{{item.name}}</p>
-                <p class="pa-0 ma-0 font-weight-bold">${{item.price}}</p>
-                <p class="subtitle-1 ma-0">3 cuotas sin interes</p>
-              </div>
-            </router-link>
-          </v-col>
-        </v-row>
+        <product-item :products="products"></product-item>
       </v-container>
     </div>
   </div>
 </template>
 
 <script>
+import ProductItem from "../../components/products/ProductItem";
+
 export default {
+  components: {
+    "product-item": ProductItem
+  },
   computed: {
     category() {
       return this.$store.getters["categories/getCategory"](

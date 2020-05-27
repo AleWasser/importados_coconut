@@ -8,11 +8,7 @@
               <v-container fluid class="pa-0">
                 <v-row>
                   <v-col cols="5" class="py-0">
-                    <v-img
-                      height="100%"
-                      :src="product.imageUrl"
-                      lazy-src="@/assets/importados_coconut_placeholder.png"
-                    >
+                    <v-img height="300" width="400" :src="product.imageUrl">
                       <template v-slot:placeholder>
                         <v-row class="fill-height ma-0" align="center" justify="center">
                           <v-progress-circular indeterminate color="black lighten-5"></v-progress-circular>
@@ -43,11 +39,7 @@
         <v-row>
           <v-col cols="12">
             <v-card class="justify-center">
-              <v-img
-                height="100%"
-                :src="product.imageUrl"
-                lazy-src="@/assets/importados_coconut_placeholder.png"
-              >
+              <v-img height="100%" :src="product.imageUrl">
                 <template v-slot:placeholder>
                   <v-row class="fill-height ma-0" align="center" justify="center">
                     <v-progress-circular indeterminate color="black lighten-5"></v-progress-circular>

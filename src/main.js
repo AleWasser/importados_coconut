@@ -20,6 +20,7 @@ new Vue({
   vuetify,
   render: h => h(App),
   created() {
+    this.$store.dispatch('user/tryAutoLogin');
     this.$store.dispatch('categories/fetch');
     this.$store.dispatch('products/fetch');
   }
