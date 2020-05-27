@@ -116,7 +116,8 @@ const actions = {
     },
     //* Update a category
     update({
-        commit
+        commit,
+        dispatch
     }, payload) {
         let imageUrl;
         let imagePath;
@@ -150,6 +151,12 @@ const actions = {
                         id: payload.id,
                     });
                 }
+                dispatch('products/updateCategory', {
+                    name: payload.name,
+                    id: payload.id,
+                }, {
+                    root: true
+                });
                 commit('setLoading', false);
             })
             .catch(err => {
@@ -159,12 +166,18 @@ const actions = {
     },
     //* Delete Category
     delete({
-        commit
+        commit,
+        dispatch
     }, payload) {
         commit('setLoading', true);
         db.collection('categories').doc(payload.id).delete()
             .then(() => deleteFile(payload.imagePath))
             .then(() => {
+                dispatch('products/deleteCategory', {
+                    id: payload.id,
+                }, {
+                    root: true
+                });
                 commit('setLoading', false);
                 commit('delete', payload.id);
             })

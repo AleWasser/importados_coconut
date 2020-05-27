@@ -196,6 +196,29 @@ const actions = {
                 console.error(err);
             });
     },
+    //* Cascade update when category is updated
+    updateCategory({
+        dispatch
+    }, payload) {
+        db.collection('products').where('category.id', "==", payload.id).get()
+            .then(snapshot => {
+                let batch = db.batch();
+                snapshot.forEach(doc => {
+                    const docRef = db.collection('products').doc(doc.id);
+                    batch.set(docRef, {
+                        category: {
+                            ...payload
+                        },
+                    }, {
+                        merge: true
+                    });
+                });
+                batch.commit()
+                    .then(() => dispatch('fetch'));
+            })
+            .catch(err => console.error(err));
+
+    },
     //* Delete Product
     delete({
         commit
@@ -211,7 +234,27 @@ const actions = {
                 commit('setLoading', false);
                 console.error(err);
             });
-    }
+    },
+    //* Delete cascade on category delete
+    deleteCategory({
+        dispatch
+    }, payload) {
+        db.collection('products').where('category.id', "==", payload.id).get()
+            .then(snapshot => {
+                let batch = db.batch();
+                snapshot.forEach(doc => {
+                    const docRef = db.collection('products').doc(doc.id);
+                    batch.set(docRef, {
+                        category: null
+                    }, {
+                        merge: true
+                    });
+                });
+                batch.commit()
+                    .then(() => dispatch('fetch'));
+            })
+            .catch(err => console.error(err));
+    },
 }
 
 export default {
