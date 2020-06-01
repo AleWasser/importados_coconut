@@ -86,17 +86,19 @@ const actions = {
         let id;
         let imageUrl;
         let imagePath;
+        let productData = {
+            name: payload.name,
+            description: payload.description,
+            category: {
+                id: payload.category.id,
+                name: payload.category.name,
+            },
+            stock: payload.stock,
+            price: payload.price,
+            tonos: payload.tonos.length > 0 ? payload.tonos : null,
+        };
         commit('setLoading', true);
-        db.collection('products').add({
-                name: payload.name,
-                description: payload.description,
-                category: {
-                    id: payload.category.id,
-                    name: payload.category.name,
-                },
-                stock: payload.stock,
-                price: payload.price,
-            })
+        db.collection('products').add(productData)
             .then(res => {
                 id = res.id;
                 let ext = payload.image.name.slice(payload.image.name.lastIndexOf('.'));
@@ -112,14 +114,7 @@ const actions = {
             })
             .then(() => {
                 commit('create', {
-                    name: payload.name,
-                    description: payload.description,
-                    category: {
-                        id: payload.category.id,
-                        name: payload.category.name,
-                    },
-                    stock: payload.stock,
-                    price: payload.price,
+                    ...productData,
                     id: id,
                     imageUrl: imageUrl,
                     imagePath: imagePath,
@@ -137,17 +132,19 @@ const actions = {
     }, payload) {
         let imageUrl;
         let imagePath;
+        let productData = {
+            name: payload.name,
+            description: payload.description,
+            category: {
+                id: payload.category.id,
+                name: payload.category.name,
+            },
+            stock: payload.stock,
+            price: payload.price,
+            tonos: payload.tonos.length > 0 ? payload.tonos : null,
+        };
         commit('setLoading', true);
-        db.collection('products').doc(payload.id).update({
-                name: payload.name,
-                description: payload.description,
-                category: {
-                    id: payload.category.id,
-                    name: payload.category.name,
-                },
-                stock: payload.stock,
-                price: payload.price,
-            })
+        db.collection('products').doc(payload.id).update(productData)
             .then(() => {
                 if (payload.image) {
                     let ext = payload.image.name.slice(payload.image.name.lastIndexOf('.'));
@@ -162,14 +159,7 @@ const actions = {
                         })
                         .then(() => {
                             commit('update', {
-                                name: payload.name,
-                                description: payload.description,
-                                category: {
-                                    id: payload.category.id,
-                                    name: payload.category.name,
-                                },
-                                stock: payload.stock,
-                                price: payload.price,
+                                ...productData,
                                 id: payload.id,
                                 imageUrl: imageUrl,
                                 imagePath: imagePath,
@@ -178,14 +168,7 @@ const actions = {
                         })
                 } else {
                     commit('update', {
-                        name: payload.name,
-                        description: payload.description,
-                        category: {
-                            id: payload.category.id,
-                            name: payload.category.name,
-                        },
-                        stock: payload.stock,
-                        price: payload.price,
+                        ...productData,
                         id: payload.id,
                     });
                     commit('setLoading', false);

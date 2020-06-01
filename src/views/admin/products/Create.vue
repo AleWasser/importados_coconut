@@ -62,6 +62,38 @@
                   ></v-text-field>
                 </v-col>
               </v-row>
+              <v-row>
+                <v-col cols="12" class="text-center">
+                  <v-switch label="Tonos" v-model="optional"></v-switch>
+                  <v-row class="align-center" v-if="optional">
+                    <v-col cols="8">
+                      <v-color-picker v-model="color" show-swatches hide-inputs></v-color-picker>
+                    </v-col>
+                    <v-col cols="4">
+                      <v-btn small rounded color="primary" @click="selectColorHandler">
+                        <v-icon left>mdi-plus-circle</v-icon>Agregar tono
+                      </v-btn>
+                    </v-col>
+                    <v-col cols="12" v-if="tonos.length > 0">
+                      <v-list dense subheader>
+                        <v-subheader>Tonos seleccionados</v-subheader>
+                        <v-list-item v-for="(item, index) in tonos" :key="index">
+                          <v-list-item-avatar :color="item.color" size="25"></v-list-item-avatar>
+                          <v-list-item-content>
+                            <v-text-field
+                              name="colorInput"
+                              label="Nombre del color"
+                              v-model="item.name"
+                              append-outer-icon="mdi-close-circle"
+                              @click:append-outer="removeColor(index)"
+                            ></v-text-field>
+                          </v-list-item-content>
+                        </v-list-item>
+                      </v-list>
+                    </v-col>
+                  </v-row>
+                </v-col>
+              </v-row>
             </v-card-text>
             <v-card-actions class="justify-center">
               <v-btn color="error" to="/admin/productos">Cancelar</v-btn>
@@ -86,6 +118,9 @@ export default {
       category: null,
       stock: "",
       price: "",
+      optional: false,
+      color: "",
+      tonos: [],
       formRules: [v => !!v || "Campo requerido"]
     };
   },
@@ -98,7 +133,8 @@ export default {
           description: this.description,
           category: this.category,
           stock: this.stock,
-          price: this.price
+          price: this.price,
+          tonos: this.tonos
         })
         .then(() => this.$router.push("/admin/productos"));
     },
@@ -110,6 +146,12 @@ export default {
         };
         reader.readAsDataURL(event);
       }
+    },
+    selectColorHandler() {
+      this.tonos.push({ color: this.color, name: "" });
+    },
+    removeColor(index) {
+      this.tonos.splice(index, 1);
     }
   },
   computed: {
